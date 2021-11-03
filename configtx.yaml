@@ -1,0 +1,137 @@
+Capabilities:
+  Application: &ApplicationCapabilities
+    V2_0: true
+  Orderer: &OrdererCapabilities
+    V2_0: true
+  Channel: &ChannelCapabilities
+    V2_0: true
+
+Organizations:
+  - &Orderer
+      Name: OrdererMSP
+      SkipAsForeign: false
+      ID: OrdererMSP
+      MSPDir: organizations/ordererOrganizations/saintrivers.com/msp
+      Policies: &OrdererPolicies
+        Readers:
+          Type: Signature
+          Rule: "OR('OrdererMSP.member')"
+        Writers:
+          Type: Signature
+          Rule: "OR('OrdererMSP.member')"
+        Admins:
+          Type: Signature
+          Rule: "OR('OrdererMSP.member')"
+        Endorsement:
+          Type: Signature
+          Rule: "OR('OrdererMSP.member')"
+
+  - &Org1
+      Name: Org1
+      ID: Org1MSP
+      MSPDir: organizations/peerOrganizations/org1.saintrivers.com/msp
+      Policies: &Org1Policies
+        Readers:
+          Type: Signature
+          Rule: "OR('Org1MSP.member')"
+        Writers:
+          Type: Signature
+          Rule: "OR('Org1MSP.member')"
+        Admins:
+          Type: Signature
+          Rule: "OR('Org1MSP.member')"
+        Endorsement:
+          Type: Signature
+          Rule: "OR('Org1MSP.member')"
+
+      AnchorPeers: 
+        - Host: peer0.org1.saintrivers.com
+          Port: 7051
+
+Orderer: &OrdererDefaults
+  OrdererType: solo
+  Addresses: 
+    - saintrivers.com:7060
+  BatchTimeout: 5s
+  BatchSize:
+    MaxMessageCount: 10
+    AbsoluteMaxBytes: 99 MB
+    PreferredMaxBytes: 512 KB
+  MaxChannels: 0
+  Policies:
+    Readers:
+      Type: ImplicitMeta
+      Rule: "ANY Readers"
+    Writers:
+      Type: ImplicitMeta
+      Rule: "ANY Writers"
+    Admins:
+      Type: ImplicitMeta
+      Rule: "ANY Admins"
+    BlockValidation:
+      Type: ImplicitMeta
+      Rule: "ANY Writers"
+  Organizations:
+  Capabilities:
+    <<: *OrdererCapabilities
+
+Channel: &ChannelDefaults
+  Policies:
+    Readers:
+      Type: ImplicitMeta
+      Rule: "ANY Readers"
+    Writers:
+      Type: ImplicitMeta
+      Rule: "ANY Writers"
+    Admins:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Admins"
+  Capabilities:
+    <<: *ChannelCapabilities
+
+Application: &ApplicationDefaults
+  Policies: &ApplicationDefaultPolicies
+    LifecycleEndorsement:
+      Type: ImplicitMeta
+      Rule: "ANY Endorsement"
+    Endorsement:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Endorsement"
+    Readers:
+      Type: ImplicitMeta
+      Rule: "ANY Readers"
+    Writers:
+      Type: ImplicitMeta
+      Rule: "ANY Writers"
+    Admins:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Admins"
+  Capabilities:
+    <<: *ApplicationCapabilities
+  Organizations: 
+
+Profiles:
+  TwoOrgsOrdererGenesis: 
+    Capabilities:
+      <<: *ChannelCapabilities
+    <<: *ChannelDefaults
+    Orderer:
+      <<: *OrdererDefaults
+      Organizations:
+        - *Orderer
+      Capabilities: 
+        <<: *OrdererCapabilities
+    Consortiums:
+      SampleConsortium:
+        Organizations:
+          - *Org1
+
+  OneOrgChannel:
+    <<: *ChannelDefaults
+    Consortium: SampleConsortium
+    Application: 
+      <<: *ApplicationDefaults
+      Organizations:
+        - *Org1
+      Capabilities:
+        <<: *ApplicationCapabilities
