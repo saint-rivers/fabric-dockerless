@@ -4,3 +4,9 @@
 /ledger
 /mychannel.block
 /organizations
+/transientstore
+/snapshots
+/ledgersData
+/externalbuilder
+/chaincodes
+/lifecycle

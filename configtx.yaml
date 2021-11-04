@@ -51,7 +51,7 @@ Organizations:
 Orderer: &OrdererDefaults
   OrdererType: solo
   Addresses: 
-    - saintrivers.com:7060
+    - localhost:7060
   BatchTimeout: 5s
   BatchSize:
     MaxMessageCount: 10

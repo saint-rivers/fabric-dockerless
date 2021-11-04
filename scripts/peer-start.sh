@@ -6,7 +6,7 @@ export FABRIC_LOGGING_SPEC=INFO
 
 export CORE_PEER_LISTENADDRESS=0.0.0.0:7053
 export CORE_PEER_ADDRESS=0.0.0.0:7053
-export CORE_PEER_FILESYSTEMPATH=$PWD/CORE_LEDGER_STATE_STATEDATABASE
+export CORE_PEER_FILESYSTEMPATH=$PWD/$CORE_LEDGER_STATE_STATEDATABASE
 
 
 # Identity set to Admin
@@ -46,3 +46,12 @@ fi
 
 # create the channel
 peer channel create -o $ORDERER_ADDRESS -c mychannel -f "$CONFIG_DIRECTORY"/artifacts/channel.tx 
+
+# start a peer
+peer node start &
+
+# wait for some time to buffer?
+sleep $WAIT_TIME
+
+# join channel
+peer channel join -o $ORDERER_ADDRESS -b ./mychannel.block

@@ -1,4 +1,8 @@
 #!/bin/bash
 
-./generate-crypto.sh
-./artifacts-init.sh
+. ./scripts/generate-crypto.sh
+. ./scripts/artifacts-init.sh
+
+. ./scripts/orderer-up.sh &
+
+. ./scripts/peer-start.sh
