@@ -16,7 +16,7 @@ configtxgen -channelID mfn-sys-channel -profile TwoOrgsOrdererGenesis -outputBlo
 # create a channel configuration block from profile:OneOrgChannel 
 configtxgen -channelID $CHANNEL_NAME -profile OneOrgChannel -outputCreateChannelTx ./artifacts/channel.tx
 # create an anchor peer update block from profile:OneOrgChannel
-configtxgen -channelID $CHANNEL_NAME -profile OneOrgChannel -outputAnchorPeersUpdate ./artifacts/org1.saintrivers.anchors.tx -asOrg Org1
+configtxgen -channelID $CHANNEL_NAME -profile OneOrgChannel -outputAnchorPeersUpdate ./artifacts/org1.saintrivers.anchors.tx -asOrg Org1MSP
 
 
 # get data in json

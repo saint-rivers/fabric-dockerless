@@ -88,7 +88,7 @@ func (s *SmartContract) ReadAsset(ctx contractapi.TransactionContextInterface, i
 	if err != nil {
 		return nil, err
 	}
-
+	// hi
 	return &asset, nil
 }
 
