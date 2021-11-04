@@ -12,6 +12,6 @@
 /lifecycle
 /CouchDB
 /mycc.tar.gz
-/atcc/vendor/*
-/atcc/go.mod/*
-/atcc/go.sum/*
+atcc/vendor/*
+atcc/go.mod
+atcc/go.sum

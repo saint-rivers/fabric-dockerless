@@ -1,5 +1,26 @@
 # Execution Order
 
+## 0. Quick Tutorial
+
+To clear everything,
+
+```bash
+./reset.sh
+```
+
+To run everything in one command, use the command below. But you'll also need to start up a couchdb container first.
+
+```bash
+. ./scripts/couchdb-init.sh
+. ./restart.sh
+```
+
+To package and install chaincode, run the following
+
+```bash
+. ./scripts/chaincode-install.sh
+```
+
 ## 1. Crypto Materials Setup
 
 Crypto materials includes things like MSP, CA and keys for each organization.
@@ -26,7 +47,15 @@ To start up the orderer, run the command below.
 
 ## 3. Start A Peer Node
 
+(Haven't written it properly yet)
+
 ## 42. Sources & References
+
+### Helpful Fixes
+
+<https://stackoverflow.com/questions/63649290/error-while-installing-fabric-chaincode-lifecycle-syscc-no-such-file-or-direc>
+
+<https://hub.docker.com/r/hyperledger/fabric-baseos/tags>
 
 ### Tutorials with docker compose
 
