@@ -30,7 +30,7 @@ peer:
     # If this is not specified, the chaincodeListenAddress address is selected.
     # And if chaincodeListenAddress is not specified, address is selected from
     # peer listenAddress.
-    # chaincodeAddress: 0.0.0.0:7052
+    # chaincodeAddress: 127.0.0.1:7052
 
     # When used as peer config, this represents the endpoint to other peers
     # in the same organization. For peers in other organization, see
@@ -484,7 +484,9 @@ chaincode:
 
     golang:
         # golang will never need more than baseos
-        runtime: $(BASE_DOCKER_NS)/fabric-baseos:$(ARCH)-$(BASE_VERSION)
+        # runtime: $(BASE_DOCKER_NS)/fabric-baseos:$(ARCH)-$(BASE_VERSION)
+        runtime: hyperledger/fabric-baseos:$(ARCH)-2.2
+
 
         # whether or not golang chaincode should be linked dynamically
         dynamicLink: false
@@ -542,6 +544,7 @@ chaincode:
         escc: enable
         vscc: enable
         qscc: enable
+        _lifecycle: enable
 
     # System chaincode plugins: in addition to being imported and compiled
     # into fabric through core/chaincode/importsysccs.go, system chaincodes

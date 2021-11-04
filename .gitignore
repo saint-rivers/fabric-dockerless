@@ -10,3 +10,8 @@
 /externalbuilder
 /chaincodes
 /lifecycle
+/CouchDB
+/mycc.tar.gz
+/atcc/vendor/*
+/atcc/go.mod/*
+/atcc/go.sum/*
