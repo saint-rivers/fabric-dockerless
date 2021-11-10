@@ -35,3 +35,27 @@ approveForMyOrg1(){
 }
 
 approveForMyOrg1
+
+
+checkCommitReadiness(){
+    setGlobalForPeer0Org1
+    peer lifecycle chaincode checkcommitreadiness \
+    --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${VERSION} \
+    --sequence ${VERSION} --output json --init-required
+    echo "======================= check chaincode readiness ======================="
+
+}
+
+# checkCommitReadiness
+
+commitChaincodeDefinition(){
+    setGlobalForPeer0Org1
+    set -x 
+    peer lifecycle chaincode commit -o localhost:7060 \
+        --channelID $CHANNEL_NAME --name ${CC_NAME}\
+        --sequence ${VERSION}  --version ${VERSION} --init-required
+    set +x
+}
+
+commitChaincodeDefinition
+
